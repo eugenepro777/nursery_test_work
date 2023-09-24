@@ -19,7 +19,7 @@ public class PetController {
     private final View<Pets> view;
     private PetValidator validator;
 
-    public PetController() {
+    public PetController(Repository<Pets> petRepository) {
         this.view = new ConsoleView();
         this.petRepository = petRepository;
         this.petCreator = new PetCreator();
@@ -73,10 +73,10 @@ public class PetController {
         try {
 
             if (((PetRepository) petRepository).getCommandsById(id, 1).contains(command))
-                view.showMessage("это мы уже умеем");
+                view.showMessage("команда уже известна");
             else {
                 if (!((PetRepository) petRepository).getCommandsById(id, 2).contains(command))
-                    view.showMessage("невыполнимая команда");
+                    view.showMessage("выполнить команду не возможно");
                 else {
                     ((PetRepository) petRepository).training(id, command);
                     view.showMessage("команда разучена\n");
