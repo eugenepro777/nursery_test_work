@@ -6,7 +6,7 @@ import userInterface.ConsoleMenu;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Repository<Pets> myFarm = new PetRepository();
         PetController controller = new PetController(myFarm);
