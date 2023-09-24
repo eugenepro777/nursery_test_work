@@ -147,7 +147,7 @@ public class PetRepository implements Repository<Pets> {
 
     }
 
-    public void train (int id, String command){
+    public void training (int id, String command){
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
             try (Connection dbConnection = getConnection()) {
@@ -164,7 +164,7 @@ public class PetRepository implements Repository<Pets> {
         }
     }
 
-        // commands type = 1 - получить команды для наших животных, 2 - команды, выполнимые животным определенного рода
+    // commands type = 1 - получить команды для наших животных, 2 - команды, выполнимые животным определенного рода
     public List<String> getCommandsById (int petId, int commands_type){
 
         List <String> commands = new ArrayList <>();
