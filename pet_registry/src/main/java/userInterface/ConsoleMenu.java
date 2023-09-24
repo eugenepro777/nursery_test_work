@@ -130,7 +130,7 @@ public class ConsoleMenu {
             if (command.length() == 1 && command.equals("0"))
                 return;
             if (petController.trainPet(petId, command))
-                System.out.println("получилось!");
+                System.out.println("успешно выполнена");
         }
     }
 }
