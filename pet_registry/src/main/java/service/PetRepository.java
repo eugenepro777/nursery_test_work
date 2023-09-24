@@ -28,7 +28,7 @@ public class PetRepository implements Repository<Pets> {
 
     @Override
     public List<Pets> getAll() {
-        List<Pets> farm = new ArrayList<Pets>();
+        List<Pets> farm = new ArrayList<>();
         Pets pet;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
