@@ -147,24 +147,7 @@ public class PetRepository implements Repository<Pets> {
 
     }
 
-    public void training (int id, String command){
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            try (Connection dbConnection = getConnection()) {
-                String SQLstr = "INSERT INTO pet_command (PetId, CommandId) SELECT ?, (SELECT Id FROM commands WHERE Command_name = ?)";
-                PreparedStatement prepSt = dbConnection.prepareStatement(SQLstr);
-                prepSt.setInt(1, id);
-                prepSt.setString(2, command);
-
-                prepSt.executeUpdate();
-            }
-        } catch (ClassNotFoundException | IOException | SQLException ex) {
-            Logger.getLogger(PetRepository.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(ex.getMessage());
-        }
-    }
-
-    // commands type = 1 - получить команды для наших животных, 2 - команды, выполнимые животным определенного рода
+    // commands type = 1 - получить команды для наших животных, 2 - команды для животного определенного рода
     public List<String> getCommandsById (int petId, int commands_type){
 
         List <String> commands = new ArrayList <>();
@@ -189,6 +172,24 @@ public class PetRepository implements Repository<Pets> {
             throw new RuntimeException(ex.getMessage());
         }
     }
+
+    public void training (int id, String command){
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try (Connection dbConnection = getConnection()) {
+                String SQLstr = "INSERT INTO pet_command (PetId, CommandId) SELECT ?, (SELECT Id FROM commands WHERE Command_name = ?)";
+                PreparedStatement prepSt = dbConnection.prepareStatement(SQLstr);
+                prepSt.setInt(1, id);
+                prepSt.setString(2, command);
+
+                prepSt.executeUpdate();
+            }
+        } catch (ClassNotFoundException | IOException | SQLException ex) {
+            Logger.getLogger(PetRepository.class.getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(ex.getMessage());
+        }
+    }
+
 
     public static Connection getConnection() throws SQLException, IOException {
 
