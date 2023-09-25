@@ -147,7 +147,7 @@ public class PetRepository implements Repository<Pets> {
 
     }
 
-    // commands type = 1 - получить команды для наших животных, 2 - команды для животного определенного рода
+    // commands type = 1 - получить команды для наших животных, 2 - команды для животного определенного вида
     public List<String> getCommandsById (int petId, int commands_type){
 
         List <String> commands = new ArrayList <>();
@@ -157,7 +157,7 @@ public class PetRepository implements Repository<Pets> {
                 if (commands_type == 1){
                     SQLstr = "SELECT Command_name FROM pet_command pc JOIN commands c ON pc.CommandId = c.Id WHERE pc.PetId = ?";
                 } else {
-                    SQLstr = "SELECT Command_name FROM commands c JOIN Genus_command gc ON c.Id = gc.CommandId WHERE gc.GenusId = (SELECT GenusId FROM pet_list WHERE Id = ?)";
+                    SQLstr = "SELECT Command_name FROM commands c JOIN genus_command gc ON c.Id = gc.CommandId WHERE gc.GenusId = (SELECT GenusId FROM pet_list WHERE Id = ?)";
                 }
                 PreparedStatement prepSt = dbConnection.prepareStatement(SQLstr);
                 prepSt.setInt(1, petId);

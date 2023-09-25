@@ -9,6 +9,8 @@ import java.util.Arrays;
 
 public class PetValidator {
 
+    private static final String LATIN_REGEX = "^[\\p{IsLatin}\\s]+$";
+
     public void validate (String [] data){
 
         StringBuilder sb = new StringBuilder();
@@ -32,13 +34,14 @@ public class PetValidator {
         }
     }
 
-    private boolean isValidName (String name){
-        for (int i = 0; i < name.length(); i++) {
-            if (! Character.UnicodeBlock.of(name.charAt(i)).equals(Character.UnicodeBlock.CYRILLIC)) {
-                throw new IncorrectDataException(String.format("в имени допустимы только буквы кириллицы"));
-            }
+
+    private boolean isValidName(String name) {
+        name = name.replaceAll("[^\\p{Print}]", "");
+        if (name.matches(LATIN_REGEX)) {
+            return true;
+        } else {
+            throw new IncorrectDataException("в имени допустимы только буквы латиницы");
         }
-        return true;
     }
 
     private boolean isValidDate (String birthday)  {
